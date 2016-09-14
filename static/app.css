@@ -1,0 +1,30 @@
+.bookList{
+  min-width: 230px;
+}
+.book-detail .details{
+  padding: 4px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.search-box, .book-list, .book-detail{
+  padding: 10px;
+  margin: 10px;
+}
+.book-list {
+  padding: 0px;
+}
+.list-group-item{
+  cursor: pointer;
+}
+.list-group-item img{
+  display: flex;
+  margin: auto;
+}
+.list-group-item span{
+  display: flex;
+  justify-content: center;
+}
+.list-group-item:hover{
+  background-color: #ddd;
+}
