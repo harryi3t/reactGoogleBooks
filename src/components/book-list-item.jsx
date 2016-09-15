@@ -10,12 +10,16 @@ class BookListItem extends React.Component {
 
   render() {
     const book = this.props.book;
+    let imgUrl = 'https://placeholdit.imgix.net/~text?txtsize=20&txt=Not%20Found&w=150&h=200';
+    if (book.volumeInfo.imageLinks)
+      imgUrl = book.volumeInfo.imageLinks.smallThumbnail;
+
     return (
       <li className="list-group-item book-list-item"
         onClick={() => this.onClickBook(book)}>
         <div className="media">
           <div className="media-top">
-            <img src={ book.volumeInfo.imageLinks.smallThumbnail } />
+            <img src={ imgUrl } />
           </div>
           <div className="media-body">
             <div className="media-heading"> { book.volumeInfo.title } </div>
