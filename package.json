@@ -1,13 +1,13 @@
 {
-  "name": "reactReduxStarter",
+  "name": "ReactGoogleBooks",
   "version": "1.0.0",
-  "description": "Boilerplate for ReactJS projects with redux and hot code reloading",
+  "description": "React project to search google books using google api",
   "scripts": {
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/harryi3t/reactReduxStarter.git"
+    "url": "https://github.com/harryi3t/ReactGoogleBooks.git"
   },
   "keywords": [
     "react",
@@ -23,7 +23,7 @@
   ],
   "author": "harryi3t <66hari@gmail.com> (http://github.com/harryi3t)",
   "license": "MIT",
-  "homepage": "https://github.com/harryi3t/reactReduxStarter",
+  "homepage": "https://github.com/harryi3t/reactGoogleBooks",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",

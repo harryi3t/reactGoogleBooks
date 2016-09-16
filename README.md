@@ -1,9 +1,3 @@
-# ReactReduxStarter
+# ReactGoogleBooks
 
-Boilerplate for ReactJS projects with redux and hot loading
-
-#### To enable hot loading
-Start the server in dev mode
-``javascript
-node server.js --dev
-```
+Just another demo application to test react and redux
