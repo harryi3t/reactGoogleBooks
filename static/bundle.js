@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3fe906767bfa56be0b75"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7c52fbc37fdd044c6bf3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22941,12 +22941,12 @@
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-md-4' },
+	          { className: 'col-md-4 col-sm-12' },
 	          _react2.default.createElement(_bookList2.default, null)
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-md-8' },
+	          { className: 'col-md-8 col-sm-12' },
 	          _react2.default.createElement(_bookDetails2.default, null)
 	        )
 	      );
@@ -23009,7 +23009,7 @@
 	        { className: 'book-list' },
 	        _react2.default.createElement(
 	          'ul',
-	          { className: 'col-md-12 list-group' },
+	          { className: 'col-md-12 col-sm-12 list-group' },
 	          bookList
 	        )
 	      );
@@ -23021,7 +23021,7 @@
 
 	function mapStateToProps(state) {
 	  return {
-	    books: state.books
+	    books: state.books.list
 	  };
 	}
 
@@ -23074,6 +23074,11 @@
 	      this.props.selectBook(book);
 	    }
 	  }, {
+	    key: 'getTruncatedTitle',
+	    value: function getTruncatedTitle(title) {
+	      return title.slice(0, 29) + (title.length > 30 ? '...' : '');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -23084,7 +23089,7 @@
 
 	      return _react2.default.createElement(
 	        'li',
-	        { className: 'list-group-item book-list-item',
+	        { className: 'list-group-item book-list-item col-sm-4 col-md-12',
 	          onClick: function onClick() {
 	            return _this2.onClickBook(book);
 	          } },
@@ -23094,7 +23099,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'media-top' },
-	            _react2.default.createElement('img', { src: imgUrl })
+	            _react2.default.createElement('img', { src: imgUrl, style: { height: '100%' } })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -23102,9 +23107,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'media-heading' },
-	              ' ',
-	              book.volumeInfo.title,
-	              ' '
+	              this.getTruncatedTitle(book.volumeInfo.title)
 	            )
 	          )
 	        )
@@ -23174,6 +23177,49 @@
 	  }
 
 	  _createClass(BookDetails, [{
+	    key: 'getAuthors',
+	    value: function getAuthors(authors) {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        authors.map(function (author, index) {
+	          var comma = ', ';
+	          if (index === authors.length - 1) comma = '';
+	          return _react2.default.createElement(
+	            'span',
+	            { key: author },
+	            author,
+	            comma
+	          );
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'getStars',
+	    value: function getStars(avgRating) {
+	      var stars = [];
+	      for (var i = 0; i < avgRating; i++) {
+	        stars.push(_react2.default.createElement('span', { className: 'star full', key: 'star-' + i }));
+	      }
+	      // there is point after decimal like 4.5, add half star
+	      if (avgRating % 1 !== avgRating) stars.push(_react2.default.createElement('span', { className: 'star half', key: 'star-' + i }));
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        stars
+	      );
+	    }
+	  }, {
+	    key: 'getPageCount',
+	    value: function getPageCount(volume) {
+	      if (volume.pageCount) return _react2.default.createElement(
+	        'div',
+	        null,
+	        volume.pageCount,
+	        ' pages'
+	      );else return null;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var book = this.props.selectedBook;
@@ -23184,14 +23230,25 @@
 	        'Enter a title and press Search'
 	      );
 
+	      var volume = book.volumeInfo;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'media book-details' },
 	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          volume.title
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'subtitle' },
+	          volume.subtitle
+	        ),
+	        _react2.default.createElement(
 	          'div',
-	          { className: 'media-top' },
-	          _react2.default.createElement('img', { src: book.volumeInfo.imageLinks.thumbnail,
-	            width: '500px' })
+	          { className: 'media-left' },
+	          _react2.default.createElement('img', { src: volume.imageLinks.thumbnail })
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -23199,9 +23256,14 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'media-heading' },
-	            ' ',
-	            book.volumeInfo.title,
-	            ' '
+	            this.getAuthors(volume.authors),
+	            this.getStars(volume.averageRating),
+	            this.getPageCount(volume),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'volume-description' },
+	              volume.description
+	            )
 	          )
 	        )
 	      );
@@ -23213,7 +23275,7 @@
 
 	function mapStateToProps(state) {
 	  return {
-	    selectedBook: state.selectedBook
+	    selectedBook: state.books.selectedBook
 	  };
 	}
 
@@ -23278,25 +23340,33 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'input-group' },
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.searchBooks },
-	          _react2.default.createElement('input', {
-	            type: 'text',
-	            value: this.state.term,
-	            className: 'form-control',
-	            placeholder: 'Enter search text here...',
-	            onChange: function onChange(event) {
-	              return _this2.setState({ term: event.target.value });
-	            } }),
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'input-group-btn' },
+	            'div',
+	            { className: 'col-md-10' },
 	            _react2.default.createElement(
-	              'button',
-	              { className: 'btn btn-primary' },
-	              'Search'
+	              'div',
+	              { className: 'input-group' },
+	              _react2.default.createElement('input', {
+	                type: 'text',
+	                value: this.state.term,
+	                className: 'form-control',
+	                placeholder: 'Enter search text here...',
+	                onChange: function onChange(event) {
+	                  return _this2.setState({ term: event.target.value });
+	                } }),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'input-group-btn' },
+	                _react2.default.createElement(
+	                  'button',
+	                  { className: 'btn btn-secondary' },
+	                  'Search'
+	                )
+	              )
 	            )
 	          )
 	        )
@@ -24698,15 +24768,10 @@
 
 	var _reducerBookList2 = _interopRequireDefault(_reducerBookList);
 
-	var _reducerBookSelect = __webpack_require__(227);
-
-	var _reducerBookSelect2 = _interopRequireDefault(_reducerBookSelect);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
-	  books: _reducerBookList2.default,
-	  selectedBook: _reducerBookSelect2.default
+	  books: _reducerBookList2.default
 	});
 
 	exports.default = rootReducer;
@@ -24722,37 +24787,26 @@
 	});
 
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? defaultState : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case 'GET_BOOKS':
-	      return action.payload.data.items || state;
+	      return {
+	        list: action.payload.data.items || state,
+	        selectedBook: action.payload.data.items[0] || null
+	      };
+	    case 'SELECT_BOOK':
+	      return {
+	        list: state.list,
+	        selectedBook: action.payload
+	      };
 	    default:
 	      return state;
 	  }
 	};
 
-/***/ },
-/* 227 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'SELECT_BOOK':
-	      return action.payload;
-	  }
-	  return state;
-	};
+	var defaultState = { list: [], selectedBook: null };
 
 /***/ }
 /******/ ]);

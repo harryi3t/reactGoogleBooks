@@ -18,17 +18,21 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="input-group">
-        <form onSubmit={ this.searchBooks } >
-          <input
-            type="text"
-            value={ this.state.term }
-            className="form-control"
-            placeholder="Enter search text here..."
-            onChange={ (event) => this.setState({term: event.target.value}) } />
-          <span className="input-group-btn">
-            <button className="btn btn-primary">Search</button>
-          </span>
+      <div className="row">
+        <form onSubmit={this.searchBooks}>
+          <div className="col-md-10">
+            <div className="input-group">
+              <input
+                type="text"
+                value={ this.state.term }
+                className="form-control"
+                placeholder="Enter search text here..."
+                onChange={ (event) => this.setState({term: event.target.value}) } />
+              <span className="input-group-btn">
+                <button className="btn btn-secondary">Search</button>
+              </span>
+            </div>
+          </div>
         </form>
       </div>
     );

@@ -10,7 +10,7 @@ class BookList extends React.Component {
 
     return (
       <div className="book-list">
-        <ul className="col-md-12 list-group">
+        <ul className="col-md-12 col-sm-12 list-group">
           {bookList}
         </ul>
       </div>
@@ -20,7 +20,7 @@ class BookList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    books: state.books
+    books: state.books.list
   };
 }
 

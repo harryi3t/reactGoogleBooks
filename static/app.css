@@ -14,6 +14,10 @@
 .book-list {
   padding: 0px;
 }
+.book-list-item{
+  height: 280px;
+  text-overflow: ellipsis;
+}
 .list-group-item{
   cursor: pointer;
 }
@@ -27,4 +31,30 @@
 }
 .list-group-item:hover{
   background-color: #ddd;
+}
+.star{
+  position: relative;
+  display: -moz-inline-box;
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  overflow: hidden;
+}
+.star.full{
+  background: no-repeat url(/static/img/stars.png) 0 -39px;
+}
+.star.half{
+  background: no-repeat url(/static/img/stars.png) 0 -13px;
+}
+.book-details span.subtitle{
+  line-height: 1.2em;
+  font-family: Arial,sans-serif;
+  color: #666;
+  font-size: 13px;
+}
+.book-details .media-body .volume-description{
+  line-height: 1.2em;
+  font-family: Arial,sans-serif;
+  color: #666;
+  font-size: 13px;
 }
