@@ -41,10 +41,10 @@
   overflow: hidden;
 }
 .star.full{
-  background: no-repeat url(/static/img/stars.png) 0 -39px;
+  background: no-repeat url(img/stars.png) 0 -39px;
 }
 .star.half{
-  background: no-repeat url(/static/img/stars.png) 0 -13px;
+  background: no-repeat url(img/stars.png) 0 -13px;
 }
 .book-details span.subtitle{
   line-height: 1.2em;
